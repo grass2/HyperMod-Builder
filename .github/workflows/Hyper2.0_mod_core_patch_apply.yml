@@ -125,6 +125,7 @@ jobs:
           unzip -j "$GITHUB_WORKSPACE/zip/${{ env.device }}${{ env.version }}-HyperMod-fastboot.zip" "images/boot.img" "images/magisk_boot.img" -d "$GITHUB_WORKSPACE/GithubRelease"
           cd "$GITHUB_WORKSPACE"
           touch new_changelog.md
+          echo -e "# Url rom: (${{ github.event.inputs.URL }}\n\n" >> new_changelog.md
           echo -e "# [HyperMod v2.0.0](https://github.com/Jefino9488/HyperMod-Builder/blob/master/changelog.md)\n\n" >> new_changelog.md
           echo -e "##   TEST Build INFO\n\n- Device: ${{ env.device }}\n- Version: ${{ env.version }}\n- Region: ${{ github.event.inputs.region }}\n- Core Patch: ${{ github.event.inputs.core }}\n- Build: $([[ '${{ github.event.inputs.ext4 }}' == 'true' ]] && echo 'ext4 RW' || echo 'erofs')" >> new_changelog.md
           echo -e "\n\n## Download Link\n\n- [Download Fastboot ZIP](${{ env.DOWNLOAD_LINK }})" >> new_changelog.md
@@ -140,9 +141,9 @@ jobs:
           allowUpdates: true
           makeLatest: true
 
-      - name: Notify via Telegram
-        run: |
-         curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage \
-          -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
-          -d parse_mode="MarkdownV2" \
+#      - name: Notify via Telegram
+#        run: |
+#         curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage \
+#          -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
+#          -d parse_mode="MarkdownV2" \
           -d text="*Test Build*%0A%0A*Device:* \`${{ env.device }}\`%0A*Version:* \`${{ env.version }}\`%0A*Region:* \`${{ github.event.inputs.region }}\`%0A*Core Patch:* \`${{ github.event.inputs.core }}\`%0A*Build:* \`$([[ '${{ github.event.inputs.ext4 }}' == 'true' ]] && echo 'ext4 RW' || echo 'erofs')\`%0A%0A[Download Fastboot ZIP](${{ env.DOWNLOAD_LINK }})"
