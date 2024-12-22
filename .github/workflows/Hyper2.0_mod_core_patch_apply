@@ -57,7 +57,7 @@ jobs:
         run: |
           # Extract device name from the URL
           URL="${{ github.event.inputs.URL }}"
-          device_name=$(basename "$URL" | cut -d'_' -f2 | cut -d'.' -f2)
+          device_name=$(basename "$URL" | cut -d'-' -f1 | cut -d'/' -f5)
           echo "version=$(echo ${{ github.event.inputs.URL }} | cut -d'/' -f4)" >> $GITHUB_ENV
           echo "device=$device_name" >> $GITHUB_ENV
           echo "Device name: $device_name"
@@ -125,7 +125,7 @@ jobs:
           unzip -j "$GITHUB_WORKSPACE/zip/${{ env.device }}${{ env.version }}-HyperMod-fastboot.zip" "images/boot.img" "images/magisk_boot.img" -d "$GITHUB_WORKSPACE/GithubRelease"
           cd "$GITHUB_WORKSPACE"
           touch new_changelog.md
-          echo -e "# [HyperMod v1.0.0](https://github.com/Jefino9488/HyperMod-Builder/blob/master/changelog.md)\n\n" >> new_changelog.md
+          echo -e "# [HyperMod v2.0.0](https://github.com/Jefino9488/HyperMod-Builder/blob/master/changelog.md)\n\n" >> new_changelog.md
           echo -e "##   TEST Build INFO\n\n- Device: ${{ env.device }}\n- Version: ${{ env.version }}\n- Region: ${{ github.event.inputs.region }}\n- Core Patch: ${{ github.event.inputs.core }}\n- Build: $([[ '${{ github.event.inputs.ext4 }}' == 'true' ]] && echo 'ext4 RW' || echo 'erofs')" >> new_changelog.md
           echo -e "\n\n## Download Link\n\n- [Download Fastboot ZIP](${{ env.DOWNLOAD_LINK }})" >> new_changelog.md
 
@@ -134,7 +134,7 @@ jobs:
         with:
           artifacts: ${{ github.workspace }}/GithubRelease/*
           token: ${{ secrets.GITHUB_TOKEN }}
-          name: ${{ env.device }}_HyperMod
+          name: ${{ env.device }}_HyperMod2.0
           tag: ${{ env.device }}_${{ env.version }}
           bodyFile: ${{ github.workspace }}/new_changelog.md
           allowUpdates: true
