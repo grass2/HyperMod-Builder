@@ -134,7 +134,7 @@ jobs:
         with:
           artifacts: ${{ github.workspace }}/GithubRelease/*
           token: ${{ secrets.GITHUB_TOKEN }}
-          name: ${{ env.device }}_HyperMod2.0
+          name: ${{ env.device }}_${{ env.version }}_HyperMod2.0_${{ date }}
           tag: ${{ env.device }}_${{ env.version }}
           bodyFile: ${{ github.workspace }}/new_changelog.md
           allowUpdates: true
