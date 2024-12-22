@@ -21,7 +21,7 @@ on:
         options:
           - 'true'
           - 'false'
-        default: 'false'
+        default: 'true'
       ext4:
         description: 'Create ext4 images'
         type: boolean
