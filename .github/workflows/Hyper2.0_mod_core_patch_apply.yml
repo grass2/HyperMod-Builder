@@ -125,7 +125,7 @@ jobs:
           unzip -j "$GITHUB_WORKSPACE/zip/${{ env.device }}${{ env.version }}-HyperMod-fastboot.zip" "images/boot.img" "images/magisk_boot.img" -d "$GITHUB_WORKSPACE/GithubRelease"
           cd "$GITHUB_WORKSPACE"
           touch new_changelog.md
-          echo -e "# Url rom: (${{ github.event.inputs.URL }}\n\n" >> new_changelog.md
+          echo -e "# Url rom: ${{ github.event.inputs.URL }}\n\n" >> new_changelog.md
           echo -e "# [HyperMod v2.0.0](https://github.com/Jefino9488/HyperMod-Builder/blob/master/changelog.md)\n\n" >> new_changelog.md
           echo -e "##   TEST Build INFO\n\n- Device: ${{ env.device }}\n- Version: ${{ env.version }}\n- Region: ${{ github.event.inputs.region }}\n- Core Patch: ${{ github.event.inputs.core }}\n- Build: $([[ '${{ github.event.inputs.ext4 }}' == 'true' ]] && echo 'ext4 RW' || echo 'erofs')" >> new_changelog.md
           echo -e "\n\n## Download Link\n\n- [Download Fastboot ZIP](${{ env.DOWNLOAD_LINK }})" >> new_changelog.md
