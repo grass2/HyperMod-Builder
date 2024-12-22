@@ -1,4 +1,4 @@
-name: HyperMod_Fastboot_apply_corepatch
+name: HyperOS1.0_HyperMod_Fastboot_apply_corepatch
 
 on:
   workflow_dispatch:
@@ -104,6 +104,11 @@ jobs:
       - name: Patch Boot
         run: |
           sudo bash "$GITHUB_WORKSPACE"/Builder/scripts/patchBOOT.sh ${{ env.device }} $GITHUB_WORKSPACE
+
+      - name: Patch init_Boot
+        run: |
+          sudo bash "$GITHUB_WORKSPACE"/Builder/scripts/patch_init_BOOT.sh ${{ env.device }} $GITHUB_WORKSPACE
+
 
       - name: Repack
         run: |
